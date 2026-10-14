@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>量化投资的定义</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07111f;
+      --panel: rgba(15, 29, 48, 0.76);
+      --line: rgba(159, 184, 213, 0.18);
+      --text: #f4f7fb;
+      --muted: #9fb0c4;
+      --cyan: #55e6d8;
+      --lime: #c7f464;
+      --blue: #73a7ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--bg);
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 78% 13%, rgba(85, 230, 216, 0.13), transparent 29%),
+        radial-gradient(circle at 16% 90%, rgba(115, 167, 255, 0.13), transparent 31%),
+        linear-gradient(145deg, #07111f 0%, #091523 56%, #06101d 100%);
+    }
+
+    .deck {
+      position: relative;
+      width: min(100vw, calc(100vh * 16 / 9));
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+    }
+
+    .track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 520ms cubic-bezier(.22, .8, .24, 1);
+    }
+
+    .slide {
+      position: relative;
+      flex: 0 0 100%;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      padding: 5.4% 6.1% 4.6%;
+      color: var(--text);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .slide:nth-child(2) {
+      background:
+        radial-gradient(circle at 13% 20%, rgba(115, 167, 255, 0.1), transparent 27%),
+        radial-gradient(circle at 88% 82%, rgba(199, 244, 100, 0.07), transparent 25%);
+    }
+
+    .grid {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      opacity: 0.25;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 4.25% 7.55%;
+      mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 82%, transparent);
+    }
+
+    .orb {
+      position: absolute;
+      right: -5%;
+      top: -11%;
+      z-index: -1;
+      width: 35%;
+      aspect-ratio: 1;
+      border: 1px solid rgba(85, 230, 216, 0.2);
+      border-radius: 50%;
+      box-shadow: inset 0 0 6rem rgba(85, 230, 216, 0.045);
+    }
+
+    .orb::before, .orb::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(85, 230, 216, 0.12);
+    }
+    .orb::before { inset: 15%; }
+    .orb::after { inset: 31%; }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--cyan);
+      font-weight: 700;
+      font-size: clamp(11px, 1.05vw, 20px);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 2.4rem;
+      height: 2px;
+      background: var(--cyan);
+      box-shadow: 0 0 14px rgba(85, 230, 216, 0.45);
+    }
+
+    h1 {
+      margin: 1.55% 0 0;
+      font-size: clamp(38px, 4.9vw, 92px);
+      line-height: 1.06;
+      letter-spacing: -0.055em;
+      font-weight: 830;
+    }
+
+    h1 span { color: var(--lime); }
+
+    .definition {
+      width: 92%;
+      margin: 5.2% 0 0;
+      padding: 1.6% 0 1.6% 3%;
+      border-left: 3px solid var(--cyan);
+      font-size: clamp(22px, 2.35vw, 45px);
+      line-height: 1.75;
+      font-weight: 510;
+      letter-spacing: 0.005em;
+    }
+
+    .definition strong {
+      color: var(--cyan);
+      font-weight: 760;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: 0.9fr 1.14fr 1.28fr;
+      gap: 1.5%;
+      margin-top: 2.8%;
+    }
+
+    .step {
+      position: relative;
+      min-height: clamp(120px, 11.5vw, 218px);
+      padding: 6.8% 7.2%;
+      border: 1px solid var(--line);
+      border-radius: 0.9rem;
+      background: linear-gradient(145deg, rgba(19, 36, 58, 0.88), rgba(11, 23, 39, 0.72));
+      box-shadow: 0 18px 42px rgba(0,0,0,0.16);
+    }
+
+    .step:not(:last-child)::after {
+      content: "\2192";
+      position: absolute;
+      z-index: 2;
+      right: -6.4%;
+      top: 50%;
+      transform: translateY(-54%);
+      width: 11%;
+      color: var(--cyan);
+      text-align: center;
+      font-size: clamp(18px, 1.65vw, 31px);
+      text-shadow: 0 0 14px rgba(85,230,216,0.5);
+    }
+
+    .num {
+      color: var(--cyan);
+      font: 700 clamp(10px, 0.85vw, 16px) ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: 0.08em;
+    }
+
+    .step h2 {
+      margin: 4.2% 0 3%;
+      font-size: clamp(18px, 1.7vw, 32px);
+      line-height: 1.12;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(11px, 0.9vw, 17px);
+      line-height: 1.5;
+    }
+
+    .formula {
+      margin-top: 4.5%;
+      color: #d5dfeb;
+      font-size: clamp(11px, 0.9vw, 17px);
+      line-height: 1.65;
+    }
+
+    .formula b {
+      color: var(--lime);
+      font-weight: 720;
+    }
+
+    .decisions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3%;
+      margin-top: 4.5%;
+    }
+
+    .decision {
+      padding: 8% 5%;
+      border: 1px solid rgba(115, 167, 255, 0.2);
+      border-radius: 0.55rem;
+      background: rgba(115, 167, 255, 0.055);
+      text-align: center;
+    }
+
+    .decision b {
+      display: block;
+      color: #e7edf6;
+      font-size: clamp(11px, 0.98vw, 19px);
+      line-height: 1.25;
+    }
+
+    .decision span {
+      display: block;
+      margin-top: 0.3rem;
+      color: var(--cyan);
+      font-size: clamp(9px, 0.72vw, 14px);
+    }
+
+    footer {
+      position: absolute;
+      left: 6.1%;
+      right: 6.1%;
+      bottom: 3.1%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #71849a;
+      font-size: clamp(9px, 0.78vw, 15px);
+      letter-spacing: 0.04em;
+    }
+
+    .not-equal {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .not-equal b {
+      color: #a9b8c9;
+      font-weight: 560;
+    }
+
+    .page {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: var(--cyan);
+    }
+
+    .lead {
+      width: 92%;
+      margin: 2.35% 0 0;
+      color: #dce6f2;
+      font-size: clamp(16px, 1.55vw, 30px);
+      line-height: 1.65;
+    }
+
+    .lead strong { color: var(--cyan); }
+
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2%;
+      margin-top: 2.65%;
+    }
+
+    .concept {
+      position: relative;
+      padding: 4.2% 4.6%;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: linear-gradient(145deg, rgba(19, 36, 58, 0.9), rgba(11, 23, 39, 0.74));
+      box-shadow: 0 18px 42px rgba(0,0,0,0.16);
+    }
+
+    .concept .tag {
+      color: var(--cyan);
+      font: 700 clamp(10px, 0.76vw, 15px) ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: 0.1em;
+    }
+
+    .concept h2 {
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
+      margin: 2.2% 0 3%;
+      font-size: clamp(22px, 2.1vw, 40px);
+    }
+
+    .concept h2 small {
+      color: var(--muted);
+      font-size: 0.45em;
+      font-weight: 540;
+    }
+
+    .concept p {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(11px, 0.95vw, 18px);
+      line-height: 1.55;
+    }
+
+    .example {
+      margin-top: 3.4%;
+      padding: 2.8% 3.2%;
+      border-radius: 0.6rem;
+      background: rgba(85, 230, 216, 0.055);
+      color: #dbe7f3;
+      font-size: clamp(10px, 0.85vw, 16px);
+      line-height: 1.5;
+    }
+
+    .example b { color: var(--lime); }
+
+    .takeaway {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4%;
+      margin-top: 2.1%;
+      padding: 1.45% 2.1%;
+      border-top: 1px solid rgba(159, 184, 213, 0.14);
+      border-bottom: 1px solid rgba(159, 184, 213, 0.14);
+      color: var(--muted);
+      font-size: clamp(11px, 0.95vw, 18px);
+    }
+
+    .takeaway strong {
+      color: var(--text);
+      font-size: clamp(13px, 1.12vw, 21px);
+    }
+
+    .takeaway .system { color: var(--cyan); }
+
+    .nav {
+      position: fixed;
+      right: max(18px, calc((100vw - min(100vw, 177.777vh)) / 2 + 18px));
+      bottom: 16px;
+      z-index: 10;
+      display: flex;
+      gap: 0.45rem;
+    }
+
+    .nav button {
+      width: 2.35rem;
+      height: 2.35rem;
+      border: 1px solid rgba(159, 184, 213, 0.22);
+      border-radius: 50%;
+      background: rgba(7, 17, 31, 0.76);
+      color: #c9d6e5;
+      cursor: pointer;
+      font-size: 1rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .nav button:hover { border-color: var(--cyan); color: var(--cyan); }
+    .nav button:disabled { opacity: 0.28; cursor: default; }
+
+    @media (max-aspect-ratio: 4/3) {
+      .slide { padding-left: 5%; padding-right: 5%; }
+      .definition { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+  <div class="track" id="track">
+  <main class="slide" role="img" aria-label="量化投资的定义幻灯片">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="orb" aria-hidden="true"></div>
+
+    <div class="eyebrow">Quantitative Investing</div>
+    <h1><span>量化投资</span>的定义</h1>
+
+    <p class="definition">
+      量化投资是一种以<strong>事先明确的规则或模型</strong>驱动决策的投资方法。<br />
+      它借助数学、计算机和金融学工具，将数据与信息转化为<strong>可检验、可执行的交易信号</strong>，<br />
+      并据此完成资产选择、仓位配置和交易执行。
+    </p>
+
+    <footer>
+      <span>QUANTITATIVE INVESTING</span>
+      <span class="page">01</span>
+    </footer>
+  </main>
+
+  <main class="slide" role="img" aria-label="事先明确的规则或模型幻灯片">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="orb" aria-hidden="true"></div>
+
+    <div class="eyebrow">Rule-based Decision</div>
+    <h1>什么是“<span>事先明确</span>”？</h1>
+
+    <p class="lead">
+      在交易发生之前，就把“买不买、买多少、何时卖”的决策依据写清楚，<br />
+      将它变成<strong>可重复、可检验、可执行</strong>的决策系统。
+    </p>
+
+    <section class="compare" aria-label="规则与模型的区别">
+      <article class="concept">
+        <div class="tag">RULE</div>
+        <h2>规则 <small>人工设定 · 逻辑直观</small></h2>
+        <p>把投资逻辑直接写成清晰的条件与动作。</p>
+        <div class="example"><b>例</b>：短期均线上穿长期均线 → 买入</div>
+      </article>
+
+      <article class="concept">
+        <div class="tag">MODEL</div>
+        <h2>模型 <small>数据驱动 · 统计估计</small></h2>
+        <p>用统计、机器学习或优化算法从数据中得出决策。</p>
+        <div class="example"><b>例</b>：多因子模型打分 → 买入排名前 10%</div>
+      </article>
+    </section>
+
+    <div class="takeaway">
+      <span>主观投资：<strong>临场判断</strong></span>
+      <span aria-hidden="true">→</span>
+      <span>量化投资：<strong class="system">预先定义的系统</strong></span>
+    </div>
+
+    <footer>
+      <span>QUANTITATIVE INVESTING</span>
+      <span class="page">02</span>
+    </footer>
+  </main>
+  </div>
+  </div>
+
+  <nav class="nav" aria-label="幻灯片翻页">
+    <button id="prev" type="button" aria-label="上一页">←</button>
+    <button id="next" type="button" aria-label="下一页">→</button>
+  </nav>
+
+  <script>
+    const track = document.getElementById('track');
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+    const total = track.children.length;
+    let current = 0;
+
+    function show(index) {
+      current = Math.max(0, Math.min(total - 1, index));
+      track.style.transform = `translateX(-${current * 100}%)`;
+      prev.disabled = current === 0;
+      next.disabled = current === total - 1;
+    }
+
+    prev.addEventListener('click', () => show(current - 1));
+    next.addEventListener('click', () => show(current + 1));
+    document.addEventListener('keydown', (event) => {
+      if (['ArrowRight', 'PageDown', ' '].includes(event.key)) show(current + 1);
+      if (['ArrowLeft', 'PageUp'].includes(event.key)) show(current - 1);
+    });
+    show(0);
+  </script>
+</body>
+</html>

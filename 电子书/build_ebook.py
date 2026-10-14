@@ -608,8 +608,16 @@ def main():
     )
     out = HERE / "量化投资100讲.html"
     out.write_text(html, encoding="utf-8")
+
+    # 供 GitHub Pages 发布（仓库 Settings → Pages 的 Source 选 main / docs）
+    docs = ROOT / "docs"
+    docs.mkdir(exist_ok=True)
+    (docs / "index.html").write_text(html, encoding="utf-8")
+    (docs / ".nojekyll").write_text("", encoding="utf-8")
+
     print("模块数：%d，讲数：%d" % (len(book), total))
     print("已生成：%s（%.2f MB）" % (out, out.stat().st_size / 1024 / 1024))
+    print("已生成 Pages 版本：%s" % (docs / "index.html"))
 
 
 if __name__ == "__main__":

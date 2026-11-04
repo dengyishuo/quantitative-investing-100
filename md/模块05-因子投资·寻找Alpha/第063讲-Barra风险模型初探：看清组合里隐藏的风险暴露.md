@@ -65,11 +65,10 @@
 3. 同时查看 IC、Rank IC、分组单调性、换手率、成本后收益和不同市场阶段。
 4. 将因子加入已有组合，检查边际贡献、相关性、风险暴露与容量，而不是只看单因子回测。
 
-## 证据、边界与风险
+## 参考资料
 
-- **参考资料**：
-  - [MSCI Equity Factor Models](https://www.msci.com/data-and-analytics/factor-investing/equity-factor-models)：Barra 风险分解的应用边界。
-  - [Kenneth French Data Library](https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)：因子定义、组合构造与可复核数据。
+- [MSCI Equity Factor Models](https://www.msci.com/data-and-analytics/factor-investing/equity-factor-models)：Barra 风险分解的应用边界。
+- [Kenneth French Data Library](https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)：因子定义、组合构造与可复核数据。
 - **适用条件与边界**：因子定义、股票池、滞后规则、中性化和再平衡不同会产生不同结果；历史溢价不是保证。
 - **主要失败模式**：同义因子重复计权、对全样本调参、忽略拥挤和容量，或把风格暴露误认作 Alpha。
 

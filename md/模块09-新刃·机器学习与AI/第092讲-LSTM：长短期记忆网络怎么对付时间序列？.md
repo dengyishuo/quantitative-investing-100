@@ -67,11 +67,10 @@ LSTM 在每个时点接收当前输入、上一隐藏状态和上一记忆状态
 3. 与朴素基线比较，并同时评价预测质量、排序质量、换手和成本后组合表现。
 4. 上线前建立特征漂移、预测分布、暴露、延迟和模型失效监控。
 
-## 证据、边界与风险
+## 参考资料
 
-- **参考资料**：
-  - [Hochreiter 与 Schmidhuber：LSTM](https://people.idsia.ch/~juergen/lstm1997-2024head.pdf)：LSTM 原始论文。
-  - [scikit-learn：TimeSeriesSplit](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html)：保持时间顺序的验证切分。
+- [Hochreiter 与 Schmidhuber：LSTM](https://people.idsia.ch/~juergen/lstm1997-2024head.pdf)：LSTM 原始论文。
+- [scikit-learn：TimeSeriesSplit](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html)：保持时间顺序的验证切分。
 - **适用条件与边界**：金融数据非独立同分布且标签重叠；预测分数只有经过时间切分、成本和稳定性检验才有投资含义。
 - **主要失败模式**：随机切分时间序列、预处理泄漏、搜索过多超参数、忽略漂移和把可解释性当因果。
 

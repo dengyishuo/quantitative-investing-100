@@ -68,11 +68,10 @@ Tick 记录逐笔成交或盘口变化，分钟线进行窗口聚合，日线描
 3. 统计缺失、重复、异常和覆盖率，并保留原始值与清洗日志。
 4. 用小样本从原始数据重建一个指标，核对复权、单位和时间对齐。
 
-## 证据、边界与风险
+## 参考资料
 
-- **参考资料**：
-  - [pandas 官方用户指南](https://pandas.pydata.org/docs/user_guide/index.html)：时间序列、缺失值与数据变换。
-  - [scikit-learn：Common pitfalls](https://scikit-learn.org/stable/common_pitfalls.html)：数据泄漏与训练、测试隔离。
+- [pandas 官方用户指南](https://pandas.pydata.org/docs/user_guide/index.html)：时间序列、缺失值与数据变换。
+- [scikit-learn：Common pitfalls](https://scikit-learn.org/stable/common_pitfalls.html)：数据泄漏与训练、测试隔离。
 - **适用条件与边界**：数据许可、交易日历、公司行动和披露时点因市场而异；今天修订后的数据库不等于历史当时可见信息。
 - **主要失败模式**：使用后见修订数据、幸存股票池或错误复权，并把缺失值静默填充成不存在的事实。
 

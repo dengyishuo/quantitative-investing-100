@@ -80,11 +80,10 @@
 3. 把开发、验证和最终测试分开，并记录每次参数与规则变更。
 4. 报告基准、成本后收益、回撤、换手、暴露、容量和稳健性，而不只报告年化收益率。
 
-## 证据、边界与风险
+## 参考资料
 
-- **参考资料**：
-  - [Backtrader 官方文档](https://www.backtrader.com/docu/)：事件驱动回测框架的行为定义。
-  - [scikit-learn：Common pitfalls](https://scikit-learn.org/stable/common_pitfalls.html)：数据泄漏与训练、测试隔离。
+- [Backtrader 官方文档](https://www.backtrader.com/docu/)：事件驱动回测框架的行为定义。
+- [scikit-learn：Common pitfalls](https://scikit-learn.org/stable/common_pitfalls.html)：数据泄漏与训练、测试隔离。
 - **适用条件与边界**：回测只检验指定数据、规则和成交模型；反复查看测试集会把它变成训练集。
 - **主要失败模式**：前视、幸存者偏差、多重试验、理想成交与选择性报告共同制造虚假确定性。
 

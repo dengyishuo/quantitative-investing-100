@@ -189,11 +189,10 @@ print(c(ann_return, ann_vol, sharpe, max_drawdown))
 3. 使用同一份输入分别运行 Python 与 R，实现逐日结果与指标对账。
 4. 保留 README、运行命令、测试记录、已知限制和上线前检查清单。
 
-## 证据、边界与风险
+## 参考资料
 
-- **参考资料**：
-  - [Backtrader 官方文档](https://www.backtrader.com/docu/)：事件驱动回测框架的行为定义。
-  - [scikit-learn：Common pitfalls](https://scikit-learn.org/stable/common_pitfalls.html)：数据泄漏与训练、测试隔离。
+- [Backtrader 官方文档](https://www.backtrader.com/docu/)：事件驱动回测框架的行为定义。
+- [scikit-learn：Common pitfalls](https://scikit-learn.org/stable/common_pitfalls.html)：数据泄漏与训练、测试隔离。
 - **适用条件与边界**：平台回测结果取决于撮合、费率和数据实现；模拟交易仍不能完整复现实盘排队、冲击和故障。
 - **主要失败模式**：研究与生产代码分叉、日志不可追溯、上线无回滚、告警无责任人、收益无法归因。
 

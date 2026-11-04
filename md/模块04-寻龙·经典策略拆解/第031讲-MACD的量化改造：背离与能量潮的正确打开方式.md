@@ -59,11 +59,10 @@ MACD 先计算快慢 EMA 之差，再对差值做平滑。与双均线相比，�
 3. 建立含手续费、滑点、市场冲击和成交限制的执行假设。
 4. 预先列出趋势、震荡、跳空和流动性枯竭等失效场景，再做样本外检验。
 
-## 证据、边界与风险
+## 参考资料
 
-- **参考资料**：
-  - [Moskowitz、Ooi 与 Pedersen：Time Series Momentum](https://www.nber.org/papers/w25551.pdf)：跨资产时间序列动量的研究入口。
-  - [Gatev、Goetzmann 与 Rouwenhorst：Pairs Trading](https://www.nber.org/papers/w7032)：配对交易规则、历史样本与微观结构解释。
+- [Moskowitz、Ooi 与 Pedersen：Time Series Momentum](https://www.nber.org/papers/w25551.pdf)：跨资产时间序列动量的研究入口。
+- [Gatev、Goetzmann 与 Rouwenhorst：Pairs Trading](https://www.nber.org/papers/w7032)：配对交易规则、历史样本与微观结构解释。
 - **适用条件与边界**：技术指标是价格变换而非独立信息；结论受品种、频率、交易制度、做空约束与成本影响。
 - **主要失败模式**：先看结果再挑参数、忽略冲击成本，或把一种市场状态下的规律外推到所有时期。
 
